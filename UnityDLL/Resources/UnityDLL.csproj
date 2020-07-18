@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{368422C2-C07B-4C88-B679-7A2D1A9AA72C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>DLL</RootNamespace>
+    <AssemblyName>UnityDLL</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Export\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>3</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup>
+    <Win32Resource>
+    </Win32Resource>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup />
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine">
+      <HintPath>..\Resources\UnityEngine.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Define.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SingletonMonoBehaviour.cs" />
+    <Compile Include="UnityAPIExpantions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>if exist $(SolutionDir)../BuildEvent\Plugins (
+goto CASE1
+)
+goto CASE2
+
+REM シンボリックリンクが存在している
+:CASE1
+echo ケース1
+if exist $(SolutionDir)../BuildEvent/Pluginsのパス.txt (
+call $(SolutionDir)../BuildEvent\SubRoutines.bat Clean $(SolutionDir)../BuildEvent/Pluginsのパス.txt
+@echo 不要になった"Pluginsのパス.txt"を削除しました。
+)
+
+call $(SolutionDir)../BuildEvent\SubRoutines.bat Copy  $(OutDir)$(TargetFileName) $(SolutionDir)..\BuildEvent\Plugins
+call $(SolutionDir)../BuildEvent\SubRoutines.bat Clean $(OutDir)
+exit /b
+
+REM シンボリックリンクが存在しない
+:CASE2
+echo ケース2
+@setlocal enabledelayedexpansion
+if not exist $(SolutionDir)../BuildEvent/Pluginsのパス.txt (
+@echo テキストファイルがない
+type nul &gt; $(SolutionDir)../BuildEvent/Pluginsのパス.txt
+$(SolutionDir)../BuildEvent/MsgBox.bat Assets/Pluginsまでのシンボリックリンクが作成されていません。作成するためにPluginsのパス.txtにPluginsフォルダまでのパスを入力してください。 再試行してシンボリックリンクの作成
+exit /b
+)
+call $(SolutionDir)../BuildEvent\MakePluginSymbolicLink.bat $(SolutionDir)../BuildEvent/Plugins
+call $(SolutionDir)../BuildEvent\SubRoutines.bat Copy  $(OutDir)$(TargetFileName) $(SolutionDir)..\BuildEvent\Plugins
+call $(SolutionDir)../BuildEvent\SubRoutines.bat Clean $(OutDir)
+call $(SolutionDir)../BuildEvent\SubRoutines.bat Clean  $(SolutionDir)../BuildEvent/Pluginsのパス.txt
+type nul &gt; $(SolutionDir)../BuildEvent/Pluginsのパス.txt</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>exit /b
+if exist  $(SolutionDir)../BuildEvent\Plugins (
+
+)
+
+call $(SolutionDir)../BuildEvent\SubRoutines.bat Clean $(OutDir)</PreBuildEvent>
+  </PropertyGroup>
+</Project>
