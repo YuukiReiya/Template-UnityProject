@@ -1,4 +1,4 @@
-﻿using API.Process;
+﻿using Utility;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,22 +22,6 @@ public class test : MonoBehaviour
     [ContextMenu("a")]
     private void A()
     {
-        ProcessBuilder process = new ProcessBuilder();
-        //process.SetPluginsPath();
-        //process.Test();
-        string buf = string.Empty;
-        //SymbolicLink.MakeSymbolicLink("C:/テスト_リンク", Application.dataPath, buf);
-
         SymbolicLink.CreatePluginsLink();
-
-        //Debug.Log(":"+System.IO.Directory.GetCurrentDirectory());
-        //string str = string.Empty;
-        //string str = "username";
-        //Debug.Log(":" + Environment.UserName);
-        //Debug.LogWarning(str);
-        //foreach(var i in System.Environment.GetEnvironmentVariables())
-        //{
-        //    Debug.LogError(i);
-        //}
     }
 }

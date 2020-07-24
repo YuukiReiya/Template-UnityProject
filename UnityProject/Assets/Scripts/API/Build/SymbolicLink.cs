@@ -10,13 +10,21 @@ using System.Linq;
 using UnityEditor;
 using Packages.Rider.Editor;
 
-namespace API.Process
+/*!
+ *  VSのビルドイベントに仕組んだので使わない。
+ *  一応使えはするので残しとく。
+ */
+namespace Utility
 {
+    /*!
+     * NOTE:
+     * BuildEventフォルダのSymbolicLink.batを管理者権限で実行するだけ。
+     * 
+     * TODO:
+     * 追加で必要になったら追加していく
+     */
     public class SymbolicLink
     {
-        [DllImport("UnityDevelopmentEnvironmentProjectDLLforCPP", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern bool CreateSymbolicLink(string linkName, string targetPath, uint flags, string errorBuffer);
-
         private static readonly string ProjectRootPath = Directory.GetParent(Directory.GetCurrentDirectory()).FullName;
         #region BAT
         private const string BatFolderName = "BuildEvent";

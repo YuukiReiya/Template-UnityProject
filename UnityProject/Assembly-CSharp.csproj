@@ -65,6 +65,8 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\API\Build\ProcessBuilder.cs" />
     <Compile Include="Assets\Scripts\API\Build\SymbolicLink.cs" />
+    <Compile Include="Assets\Scripts\API\DLLforCPP\NativePluginSample.cs" />
+    <Compile Include="Assets\Scripts\API\NativePlugins\NativePluginsManager.cs" />
     <Compile Include="Assets\Scripts\test.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>

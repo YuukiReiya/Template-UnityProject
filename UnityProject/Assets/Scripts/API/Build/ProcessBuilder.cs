@@ -10,7 +10,6 @@ using System.Linq;
 using System.IO;
 using System.Runtime.InteropServices;
 using UnityEditor.VersionControl;
-using System.IO;
 //ビルドイベント
 namespace API.Process
 {

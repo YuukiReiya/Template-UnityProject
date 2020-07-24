@@ -5,3 +5,6 @@ obj
 Packages
 Temp
 BuildEvent/Plugins
+*/obj
+*/bin
+*/test
