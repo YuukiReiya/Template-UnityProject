@@ -13,3 +13,7 @@
 DEBUG/RELEASEどちらのビルドでもdllをシンボリックリンク(Plugins)先にコピーするようにしています。
 プロジェクトの名前は変えてもいいけど、相対パス指定してるBuildEvent変えるとヤバそう…
 言うまでもなくプロパティ書き換えてください。
+
+## 注意
+  `crtdbg.h No such file or directory error`が出る場合[こちら](https://social.msdn.microsoft.com/Forums/vstudio/ja-JP/0dcc6e61-5ee3-4b25-941d-9ded1cdd4387/quotcrtdbghquot-no-such-file-or-directory-error?forum=netfxbcl)を参考にして修正してください。  
+  ※上記で直らない場合WindowsSDKが漏れていることが考えられるため、`VisualStudioInstaller`でコンポーネントを追加してください。
