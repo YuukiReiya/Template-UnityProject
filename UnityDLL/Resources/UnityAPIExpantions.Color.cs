@@ -131,6 +131,10 @@ namespace DLL
             {
                 h -= ColorMaxRange;
             }
+            else if (h < 0.0f)
+            {
+                h += ColorMaxRange;
+            }
 
             return Color.HSVToRGB(h, s, v);
         }
